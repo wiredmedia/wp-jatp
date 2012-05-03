@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: JATP Twitter (Wired Media)
+Plugin Name: WP JATP (Wired Media)
 Plugin URI: 
 Description: Twitter feed, display using a widget, shortcode, or call directly in your template files. Forked code from 'Wickett Twitter Widget' Version: 1.0.6 http://wordpress.org/extend/plugins/wickett-twitter-widget
 Version: 1.0
