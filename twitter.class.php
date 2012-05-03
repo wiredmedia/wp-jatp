@@ -13,8 +13,7 @@ namespace Wired{
     		'expiration' => 60 * 60 * 3, // 3 hours
     		'error_msg' => 'Follow us on twitter',
     		'tweet_template' => '<li>{tweet} {time_since}</li>',
-    		'echo' => true,
-    		'tweet_wrapper' => false
+    		'tweet_wrapper' => 'ul'
     	);
     	$this->options = wp_parse_args( $args, $defaults );
   	
@@ -81,25 +80,26 @@ namespace Wired{
     function the_tweets(){
       $tweets = $this->get_the_tweets();
       $output = '';
-      $output .= '<ul class="tweets">';
+      $output .= ($this->options['tweet_wrapper']) ? '<'. $this->options['tweet_wrapper'] .' class="tweets">' : '';
 
   		foreach ( (array) $tweets as $tweet ):
 
   			if ( empty( $tweet['text'] ) )
   				continue;
   			
-  			$tweet = (strstr($this->options['tweet_template'], '{tweet}')) ? $this->process_tweet( $tweet ) : '';
+  			$processed_tweet = (strstr($this->options['tweet_template'], '{tweet}')) ? $this->process_tweet( $tweet ) : '';
   			$time_since = (strstr($this->options['tweet_template'], '{time_since}')) ? $this->time_since( $tweet ) : '';
-  			$tweet_template = str_replace('{tweet}', $tweet, $this->options['tweet_template']);
+  			$tweet_template = str_replace('{tweet}', $processed_tweet, $this->options['tweet_template']);
+  			$tweet_template = str_replace('{tweet_raw}', $tweet['text'], $tweet_template);
   			$tweet_template = str_replace('{time_since}', $time_since, $tweet_template);
   			
   			$output .= $tweet_template;
 			
   		endforeach;
 
-  		$output .= "</ul>";
+  		$output .= ($this->options['tweet_wrapper']) ? '</'. $this->options['tweet_wrapper'] .'>' : '';
   		
-  		return $output;
+  		echo $output;
     
     }// END: the_tweets();
   
