@@ -27,7 +27,7 @@ namespace Wired{
   
     function get_the_tweets(){
       // try to get from transient store first
-      if( $tweets = get_transient( 'ralc-twitter-'. $this->options['screen_name'] .'-'. $this->options['count'] ) )
+      if( $tweets = get_transient( 'wired-twitter-'. $this->options['screen_name'] .'-'. $this->options['count'] ) )
         return json_decode($tweets, true);
     
       //if none stored get from twitter
@@ -51,7 +51,7 @@ namespace Wired{
 
   		$twitter_json_url = esc_url_raw( 'http://api.twitter.com/1/statuses/user_timeline.json?' . http_build_query($params), array('http', 'https') );
   		unset($params);
-  		$response = wp_remote_get( $twitter_json_url, array( 'User-Agent' => 'Ralcus Twitter Widget' ) );
+  		$response = wp_remote_get( $twitter_json_url, array( 'User-Agent' => 'Wiredmedia Twitter Widget' ) );
   		$response_code = wp_remote_retrieve_response_code( $response );
   		if ( 200 == $response_code ) {
   			$tweets = wp_remote_retrieve_body( $response );
@@ -128,7 +128,7 @@ namespace Wired{
     }
   
     function store_transient( $tweets, $expire ){    
-      set_transient( 'ralc-twitter-'. $this->options['screen_name'] .'-'. $this->options['count'], json_encode($tweets), $expire );
+      set_transient( 'wired-twitter-'. $this->options['screen_name'] .'-'. $this->options['count'], json_encode($tweets), $expire );
     }
   
     private function store_fallback( $tweets ){
@@ -136,12 +136,12 @@ namespace Wired{
        * store in option so tweet data does not expire, we need this incase an error occures when getting new tweets
        * if the error occurs then we shall get the option store instead of the transient
        */
-      delete_option('ralc-twitter-'. $this->options['screen_name'] .'-'. $this->options['count']);
-      add_option( 'ralc-twitter-'. $this->options['screen_name'] .'-'. $this->options['count'], json_encode($tweets), '', 'no' );
+      delete_option('wired-twitter-'. $this->options['screen_name'] .'-'. $this->options['count']);
+      add_option( 'wired-twitter-'. $this->options['screen_name'] .'-'. $this->options['count'], json_encode($tweets), '', 'no' );
     }
   
     private function get_fallback(){
-      return json_decode(get_option( 'ralc-twitter-'. $this->options['screen_name'] .'-'. $this->options['count'], true), $this->options['error_msg'] );
+      return json_decode(get_option( 'wired-twitter-'. $this->options['screen_name'] .'-'. $this->options['count'], true), $this->options['error_msg'] );
     }
 
   	/**
@@ -164,7 +164,7 @@ namespace Wired{
   		return "$matches[1]<a href='" . esc_url( 'http://twitter.com/search?q=%23' . urlencode( $matches[3] ) ) . "'>#$matches[3]</a>";
   	}
 		  
-  }// END:ralc\Twitter
+  }// END:Wired\Twitter
 }
 
 namespace {
