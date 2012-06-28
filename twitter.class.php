@@ -168,6 +168,7 @@ namespace Wired{
   }// END:Wired\Twitter
 }
 
+// api
 namespace {
   function get_the_tweets( $args ){
     $twitter = new Wired\Twitter( $args );
