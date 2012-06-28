@@ -4,7 +4,7 @@ Plugin Name: WP JATP (Wired Media)
 Plugin URI:
 Description: Twitter feed, display using a widget, shortcode, or call directly in your template files. Forked code from 'Wickett Twitter Widget' Version: 1.0.6 http://wordpress.org/extend/plugins/wickett-twitter-widget
 Version: 1.0
-Author: Wired Media (ralcus)
+Author: Wired Media (carl)
 Author URI: http://wiredmedia.co.uk
 License: GPLv2
 
@@ -14,15 +14,13 @@ TODO
 - add short code for showing tweets
 */
 
-/**
- * load Dependencies
- */
+require( plugin_dir_path( __FILE__ ) . 'admin.php' );
 require( plugin_dir_path( __FILE__ ) . 'time-since.class.php' );
 require( plugin_dir_path( __FILE__ ) . 'twitter.class.php' );
 
-class Wired_JATP extends \WP_Widget {
+class Wired_JATP_Widget extends \WP_Widget {
 
-	function Wired_JATP() {
+	function Wired_JATP_Widget() {
 		$widget_ops = array('classname' => 'widget_twitter', 'description' => __( 'Display your tweets from Twitter') );
 		parent::WP_Widget('twitter', __('Twitter'), $widget_ops);
 	}
@@ -101,11 +99,11 @@ class Wired_JATP extends \WP_Widget {
 
 	}
 
-}// END: Wired_JATP
+}// END: Wired_JATP_Widget
 
 /* register widget with wp widget factory */
 add_action( 'widgets_init', function(){
-	register_widget('Wired_JATP');
+	register_widget('Wired_JATP_Widget');
 });
 
 

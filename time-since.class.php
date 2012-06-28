@@ -3,15 +3,15 @@ namespace Wired;
 /**
  *
  *
- * @class 		ralcus\time_since
+ * @class 		Wired\time_since
  * @category	Class
- * @author		ralcus ( taken from WordPress.com 'wpcom_time_since()' few tiny changes )
+ * @author		Wired Media ( taken from WordPress.com 'wpcom_time_since()' few tiny changes )
  * @param     int $past expects unix time stamp
  * @param     bool $verbose if true output has up to two time units
  * @License:  GPLv2
  */
 class Time_Since {
-  
+
   var $past;
   var $verbose;
   var $time_chunks;
@@ -31,7 +31,7 @@ class Time_Since {
       array(60 , 'minute'),
     );
 	}
-	
+
 	function output_time(){
 	  $today = time();
     $since = $today - $this->past;
@@ -45,7 +45,7 @@ class Time_Since {
     }
 
     $print = ($count == 1) ? '1 '.$name : "$count {$name}s";
-    
+
     /* if there is still another time unit to display and $this->verbose flag set try to ad another time unit */
     if ($i + 1 < $j && $this->verbose ) {
       $seconds2 = $this->time_chunks[$i + 1][0];
@@ -56,7 +56,7 @@ class Time_Since {
       }
     }
     return $print;
-    
+
 	}// END: print
-	
+
 }// END: time_since

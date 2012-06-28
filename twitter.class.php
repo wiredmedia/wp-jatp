@@ -165,6 +165,18 @@ namespace Wired{
   		return "$matches[1]<a href='" . esc_url( 'http://twitter.com/search?q=%23' . urlencode( $matches[3] ) ) . "'>#$matches[3]</a>";
   	}
 
+    /*
+     * clears cache by deleting transients only,
+     * does not delete fallback option
+     */
+    public function refresh_cache(){
+      global $wpdb;
+      $options = $wpdb->get_results("SELECT * FROM $wpdb->options WHERE option_name LIKE '%wired-twitter%' AND option_name LIKE '%transient%'");
+      foreach ( $options as $option) {
+        delete_option( $option->option_name );
+      }
+    }
+
   }// END:Wired\Twitter
 }
 
