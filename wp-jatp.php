@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WP JATP (Wired Media)
-Plugin URI: 
+Plugin URI:
 Description: Twitter feed, display using a widget, shortcode, or call directly in your template files. Forked code from 'Wickett Twitter Widget' Version: 1.0.6 http://wordpress.org/extend/plugins/wickett-twitter-widget
 Version: 1.0
 Author: Wired Media (ralcus)
@@ -29,7 +29,7 @@ class Wired_JATP extends \WP_Widget {
 
 	function widget( $args, $instance ) {
 		extract( $args );
-    
+
 		$screen_name = trim( urlencode( $instance['screen_name'] ) );
 		if ( empty($screen_name) ) return;
 		$title = apply_filters('widget_title', $instance['title']);
@@ -40,14 +40,14 @@ class Wired_JATP extends \WP_Widget {
 		$exclude_replies = (bool) $instance['exclude_replies'];
 
 		echo "{$before_widget}{$before_title}<a href='" . esc_url( "http://twitter.com/{$screen_name}" ) . "'>" . esc_html($title) . "</a>{$after_title}";
-    
+
     $args = array(
   		'screen_name' => $screen_name,
   		'count' => $count,
   		'exclude_replies' => $exclude_replies
   	);
     the_tweets($args);
-		
+
 		echo $after_widget;
 	}
 
@@ -98,17 +98,15 @@ class Wired_JATP extends \WP_Widget {
 		if ( $exclude_replies )
 			echo ' checked="checked"';
 		echo ' /> ' . esc_html__('Hide replies') . '</label></p>';
-		
+
 	}
 
 }// END: Wired_JATP
 
 /* register widget with wp widget factory */
-add_action( 'widgets_init', 'wired_JATP_widget_init' );
-function wired_JATP_widget_init() {
+add_action( 'widgets_init', function(){
 	register_widget('Wired_JATP');
-}
-
+});
 
 
 /* enable calling of the widget via a shortcode
