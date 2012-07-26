@@ -13,7 +13,8 @@ namespace Wired{
     		'expiration' => 60 * 60 * 3, // 3 hours
     		'error_msg' => 'Follow us on twitter',
     		'tweet_template' => '<li>{tweet} {time_since}</li>',
-    		'tweet_wrapper' => 'ul'
+    		'tweet_wrapper' => 'ul',
+        'return' => false
     	);
     	$this->options = wp_parse_args( $args, $defaults );
 
@@ -100,7 +101,11 @@ namespace Wired{
 
   		$output .= ($this->options['tweet_wrapper']) ? '</'. $this->options['tweet_wrapper'] .'>' : '';
 
-  		echo $output;
+      if($this->options['return']){
+        return $output;
+      }else{
+  		  echo $output;
+      }
 
     }// END: the_tweets();
 
