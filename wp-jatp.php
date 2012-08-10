@@ -22,7 +22,7 @@ class Wired_JATP_Widget extends \WP_Widget {
 
 	function Wired_JATP_Widget() {
 		$widget_ops = array('classname' => 'widget_twitter', 'description' => __( 'Display your tweets from Twitter') );
-		parent::WP_Widget('twitter', __('Twitter'), $widget_ops);
+		parent::WP_Widget('wired_twitter', __('Twitter (JATP)'), $widget_ops);
 	}
 
 	function widget( $args, $instance ) {
